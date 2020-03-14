@@ -29,24 +29,26 @@ public class TrieTree {
         // We want to store everything put into output
         List<String> output = new ArrayList<>();
         // Once done with a branch of the trie, we no longer need to store that info
-        char[] chars = new char[root.vocabularySize];
-        findHelper(word.toLowerCase(), root, chars, 0, output, 0);
+        char[] chars = new char[root.vocabularySize * 5]; // Needs to jsut fill up
+        findHelper(word.toLowerCase(), root, chars, 0, output);
         return output;
     }
 
-    private void findHelper(String word, TrieNode current, char[] charStack, int stackDepth, List<String> output, int wordDepth) {
+    private void findHelper(String word, TrieNode current, char[] charStack, int wordDepth, List<String> output) {
         if (current.isEndOfWord)
-            output.add(new String(charStack, 0, stackDepth));
+            output.add(new String(charStack, 0, wordDepth)); // Took this from an online source
 
         for (int i = 0; i < current.val.length; i++) {
             if (current.val[i] != null) {
                 if (wordDepth < word.length() - 1 && current.val[i].letter == word.charAt(wordDepth)) {
-                    charStack[stackDepth] = current.val[i].letter;
-                    findHelper(word, current.val[i], charStack, stackDepth + 1, output, wordDepth + 1);
+                    charStack[wordDepth] = current.val[i].letter;
+                    findHelper(word, current.val[i], charStack, wordDepth + 1, output);
                 }
                 else if (current.val[i].letter == word.charAt(wordDepth)) {
-                    charStack[stackDepth] = current.val[i].letter;
-                    printHelper(current.val[i], charStack, stackDepth + 1, output);
+                    // The reason this calls another function with recursion is that I initially made the tostring to debug
+                    // and then adapted it to this function. Still uses recursion but calls another helper function
+                    charStack[wordDepth] = current.val[i].letter;
+                    printHelper(current.val[i], charStack, wordDepth + 1, output);
                 }
             }
         }
@@ -55,21 +57,21 @@ public class TrieTree {
     // Gives a list String of my trie used primarily for debugging
     public List<String> printTrie() {
         List<String> output = new ArrayList<>();
-        char[] chars = new char[root.vocabularySize];
+        char[] chars = new char[root.vocabularySize * 5]; // Just needs to be big
         printHelper(root, chars, 0, output);
         return output;
     }
 
     // Uses recursion to go through all my nodes
-    private void printHelper(TrieNode trieNode, char[] charStack, int stackDepth, List<String> output) {
+    private void printHelper(TrieNode trieNode, char[] charStack, int wordDepth, List<String> output) {
         if (trieNode.isEndOfWord)
-            output.add(new String(charStack, 0, stackDepth));
+            output.add(new String(charStack, 0, wordDepth));
 
         // Inefficient. It has to go through every input in the array until it gets a filled input
         for (int i = 0; i < trieNode.val.length; i++) {
             if (trieNode.val[i] != null) {
-                charStack[stackDepth] = trieNode.val[i].letter;
-                printHelper(trieNode.val[i], charStack, stackDepth + 1, output);
+                charStack[wordDepth] = trieNode.val[i].letter;
+                printHelper(trieNode.val[i], charStack, wordDepth + 1, output);
             }
         }
     }
