@@ -3,6 +3,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class TrieTest {
     // I want to test creating trie trees
@@ -106,6 +107,75 @@ public class TrieTest {
         test.add("hollow");
         test.add("how");
         tree.createTree(test);
+        return tree;
+    }
+
+    // These were used to test the speed of my function
+    @Test
+    public void timeTest() {
+        TrieTree tree = testCasesLarge();
+
+        long startTime = System.nanoTime();
+        tree.find("ho");
+        long endTime = System.nanoTime();
+
+        System.out.println(TimeUnit.MICROSECONDS.convert(endTime-startTime, TimeUnit.NANOSECONDS));
+
+        tree = testCases();
+
+        startTime = System.nanoTime();
+        tree.find("ho");
+        endTime = System.nanoTime();
+
+        System.out.println(TimeUnit.MICROSECONDS.convert(endTime-startTime, TimeUnit.NANOSECONDS));
+
+    }
+
+    public TrieTree testCasesLarge() {
+        TrieTree tree = new TrieTree();
+        List<String> add = new ArrayList<>();
+        String[] giantDoc = {
+                "high",
+                "Seattle",
+                "Seatac",
+                "see",
+                "hollow",
+                "super",
+                "specify",
+                "implement",
+                "queue",
+                "grappa",
+                "text",
+                "zoo",
+                "notation",
+                "note",
+                "not",
+                "nope",
+                "noct",
+                "qupe",
+                "how",
+                "house",
+                "horoscope",
+                "homemade",
+                "hope",
+                "hoop",
+                "hoopoo",
+                "hot",
+                "hog",
+                "horse",
+                "hoot",
+                "ho",
+                "horticulture",
+                "hongry",
+                "hop",
+                "hololens",
+                "hold",
+                "holds",
+                "hoohoo",
+        };
+
+        Collections.addAll(add, giantDoc);
+        tree.createTree(add);
         return tree;
     }
 }
