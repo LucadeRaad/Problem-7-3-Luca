@@ -29,7 +29,7 @@ public class TrieTree {
         // We want to store everything put into output
         List<String> output = new ArrayList<>();
         // Once done with a branch of the trie, we no longer need to store that info
-        char[] chars = new char[400];
+        char[] chars = new char[root.vocabularySize];
         findHelper(word.toLowerCase(), root, chars, 0, output, 0);
         return output;
     }
@@ -55,7 +55,7 @@ public class TrieTree {
     // Gives a list String of my trie used primarily for debugging
     public List<String> printTrie() {
         List<String> output = new ArrayList<>();
-        char[] chars = new char[400];
+        char[] chars = new char[root.vocabularySize];
         printHelper(root, chars, 0, output);
         return output;
     }
