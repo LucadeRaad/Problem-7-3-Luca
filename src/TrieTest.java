@@ -92,9 +92,8 @@ public class TrieTest {
 
         List<String> actual = tree.find("luca");
 
-        for(int i = 0; i < expected.size(); i++) {
-            assert (actual.get(i).equals(expected.get(i)));
-        }
+        // Didn't do a loop to make sure that the lists actually compared
+        assert (actual.equals(expected));
     }
 
     public TrieTree testCases() {
