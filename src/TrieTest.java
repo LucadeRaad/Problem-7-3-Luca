@@ -17,5 +17,7 @@ public class TrieTest {
         test.add("hollow");
         test.add("how");
         tree.createTree(test);
+        List<String> print = tree.printTrie();
+        System.out.println(print.toString());
     }
 }
