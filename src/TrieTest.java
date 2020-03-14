@@ -10,7 +10,6 @@ public class TrieTest {
     public void testCreate() {
         TrieTree tree = testCases();
         List<String> print = tree.printTrie();
-        System.out.println(print.toString());
     }
 
     @Test
@@ -58,7 +57,7 @@ public class TrieTest {
         List<String> expected = new ArrayList<>();
         Collections.addAll(expected, expectedData); // IntelliJ wanted me to do this
 
-        List<String> actual = tree.find("sea");
+        List<String> actual = tree.find("sEA");
 
         for(int i = 0; i < expected.size(); i++) {
             assert (actual.get(i).equals(expected.get(i)));
@@ -101,8 +100,8 @@ public class TrieTest {
         List<String> test = new ArrayList<>();
         test.add("hello");
         test.add("high");
-        test.add("seattle");
-        test.add("seatac");
+        test.add("Seattle");
+        test.add("Seatac");
         test.add("see");
         test.add("hollow");
         test.add("how");

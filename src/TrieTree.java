@@ -30,7 +30,7 @@ public class TrieTree {
         List<String> output = new ArrayList<>();
         // Once done with a branch of the trie, we no longer need to store that info
         char[] chars = new char[400];
-        findHelper(word, root, chars, 0, output, 0);
+        findHelper(word.toLowerCase(), root, chars, 0, output, 0);
         return output;
     }
 
